@@ -13,6 +13,16 @@ rm -rf gnutls
 
 pushd gnutls-$GNUTLS_VERSION
 
+touch -r lib/Makefile.am retained-timestamp
+
+wget https://gitorious.org/gnutls/gnutls/commit/410970f8777f2fe7a421e94999e542d023f35229.patch
+wget https://github.com/attilamolnar/gnutls/commit/e0e78d73867f65cc5af08d49e631e3b0e2fb051e.patch
+
+patch -p1 < 410970f8777f2fe7a421e94999e542d023f35229.patch
+patch -p1 < e0e78d73867f65cc5af08d49e631e3b0e2fb051e.patch
+
+touch -r retained-timestamp lib/Makefile.am
+
 export LDFLAGS="-L$PREFIX/gmp/lib"
 export PKG_CONFIG_PATH="$PREFIX/nettle/lib/pkgconfig"
 export GMP_CFLAGS="-I$PREFIX/gmp/include"
